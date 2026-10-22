@@ -58,7 +58,7 @@ quantity INTEGER
 ### 2. Data Import
 Loaded CSV using MySQL's Table data import wizard feature.
 
-### 3. 🔍 Data Exploration
+### 3. Data Exploration
 Counted the total number of records in the dataset
 
 Viewed a sample of the dataset to understand structure and content
@@ -71,12 +71,92 @@ Compared in-stock vs out-of-stock product counts
 
 Detected products present multiple times, representing different SKUs
 
-### 4. 🧹 Data Cleaning
+### 4. Data Cleaning
 Identified and removed rows where MRP or discounted selling price was zero
 
 Converted mrp and discountedSellingPrice from paise to rupees for consistency and readability
 
-### 5. 📊 Business Insights
+### 5. Business questions
+
+#### Q1) find the top 10 best-value products based on the discount percentage.
+
+```sql
+SELECT *
+FROM zepto
+ORDER BY discountPercent DESC
+LIMIT 10;
+```
+
+#### Q2) what are the products with high mrp but out of stock?
+
+```sql
+SELECT *
+FROM zepto
+WHERE outOfStock = 1 AND mrp > 300
+ORDER BY mrp DESC;
+```
+
+#### Q3) calculate estimated revenue for each category
+
+```sql
+SELECT category, SUM(discountedSellingPrice * availableQuantity) as estimated_revenue
+FROM zepto
+GROUP BY category
+ORDER BY estimated_revenue ;
+```
+
+#### Q4) Find all products where MRP is greater than ₹500 and discount is less than 10%
+
+```sql
+SELECT DISTINCT name, mrp, discountPercent
+FROM zepto
+WHERE mrp > 500 AND discountPercent < 10
+ORDER BY mrp DESC, discountPercent DESC ;
+```
+
+#### Q5) Identify the top 5 categories offering the highest average discount percentage.
+
+```sql
+SELECT category, ROUND(AVG(discountPercent),2) AS average_discount
+FROM zepto
+GROUP BY category
+ORDER BY average_discount DESC
+LIMIT 5;
+```
+
+#### Q6) Find the price per gram for products above 100g and sort by best value.
+
+```sql
+SELECT DISTINCT name, weightInGms, discountedSellingPrice, ROUND((discountedSellingPrice/weightInGms), 2) AS price_per_gram
+FROM zepto
+WHERE weightInGms >= 100
+ORDER BY price_per_gram;
+```
+
+#### Q7) Group the products into categories like Low, Medium, Bulk
+
+```sql
+SELECT Size_categories_bucket, COUNT(*)
+FROM (SELECT name, weightInGms,
+CASE 
+WHEN weightInGms <= 500 THEN "Low"
+WHEN weightInGms <= 1000 THEN "Medium"
+WHEN weightInGms > 1000 THEN "Bulk"
+END AS Size_categories_bucket
+FROM zepto) AS t1
+GROUP BY Size_categories_bucket;
+```
+
+#### Q8) what is the total inventory weight per category?
+
+```sql
+SELECT category, SUM(weightInGms * availableQuantity) AS Total_inventory_weight
+FROM zepto
+GROUP BY category
+ORDER BY Total_inventory_weight;
+```
+
+### 6. Business Insights
 Found top 10 best-value products based on discount percentage
 
 Identified high-MRP products that are currently out of stock
