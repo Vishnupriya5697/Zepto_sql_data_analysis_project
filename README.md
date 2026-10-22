@@ -14,7 +14,7 @@ This is a complete, real-world data analyst portfolio project based on an e-comm
 
 ## Dataset Overview
 
-The dataset was sourced from Kaggle and was originally scraped from Zepto’s official product listings. It mimics what you’d typically encounter in a real-world e-commerce inventory system.
+The dataset was sourced from Kaggle and was originally scraped from Zepto’s official product listings.
 
 Each row represents a unique SKU (Stock Keeping Unit) for a product. Duplicate product names exist because the same product may appear multiple times in different package sizes, weights, discounts, or categories to improve visibility – exactly how real catalog data looks.
 
