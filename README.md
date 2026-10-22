@@ -20,25 +20,20 @@ The dataset was sourced from Kaggle and was originally scraped from Zepto’s of
 
 Each row represents a unique SKU (Stock Keeping Unit) for a product. Duplicate product names exist because the same product may appear multiple times in different package sizes, weights, discounts, or categories to improve visibility – exactly how real catalog data looks.
 
-🧾 Columns:
+🧾 Data Dictionary:
 
-sku_id: Unique identifier for each product entry (Synthetic Primary Key)
 
-name: Product name as it appears on the app
-
-category: Product category like Fruits, Snacks, Beverages, etc.
-
-mrp: Maximum Retail Price (originally in paise, converted to ₹)
-
-discountPercent: Discount applied on MRP
-
-discountedSellingPrice: Final price after discount (also converted to ₹)
-
-availableQuantity: Units available in inventory
-
-weightInGms: Product weight in grams
-
-outOfStock: Boolean flag indicating stock availability
+| Columns                  | Description                                                       |
+|--------------------------|-------------------------------------------------------------------|
+| sku_id                   | Unique identifier for each product entry (Synthetic Primary Key)  |
+| name                     | Product name as it appears on the app                             |
+| category                 | Product category like Fruits, Snacks, Beverages, etc.             |
+| mrp                      | Maximum Retail Price (originally in paise, converted to ₹)        |
+| discountPercent          | Discount applied on MRP                                           |
+| discountedSellingPrice   | Final price after discount (also converted to ₹)                  |
+| availableQuantity        | Units available in inventory                                      |
+| weightInGms              | Product weight in grams                                           |
+| outOfStock               | Boolean flag indicating stock availability                        |
 
 ## Project Workflow
 Here’s a step-by-step breakdown of what we do in this project:
